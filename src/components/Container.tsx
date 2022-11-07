@@ -11,7 +11,7 @@ const Container = () => {
   const [name, setName] = useState<string>();
   const [cities, setCities] = useState<any[]>([]);
   const [zoom, setZoom] = useState<number>();
-
+  const [image, setImage] = useState<string>();
   /**
    * We're calling the API, waiting for the data to come back, then converting it to JSON, then setting
    * the state of the cities variable to the response
@@ -22,11 +22,8 @@ const Container = () => {
     setCities(response);
   };
 
-  /**
-   * DoSomething() is a function that sets the latitude, longitude, name, and zoom of the map to the
-   * latitude, longitude, title, and zoom of the third city in the cities array
-   */
   const showCityDetails = (city: any) => {
+    console.log(city)
     const {
       name = city.title,
       id,
@@ -38,8 +35,34 @@ const Container = () => {
     setLongitude(longitude);
     setName(name);
     setZoom(12);
+    setImage(image)
     console.log(name, id, image, latitude, longitude);
   };
+
+  // This method is built in order to make use of the 'show' endpoint from the API, unless it is not really necessary because of how I built the app
+  const showFromApi = (cityId:any) => {
+    fetch(`${localApiUrl}/${cityId}`)
+    .then(data => data.json())
+    .then(response => {
+      if(response) {
+        showCityDetails(response)
+      } else {
+        alert("Ups, something happened, please try again")
+      }
+    })
+  }
+
+  const deleteCity = (cityId:number) => {
+    fetch(`${localApiUrl}/${cityId}`, {
+      method: "DELETE",
+    })
+    .then(response => {
+      if(response.status === 204) {
+        alert("Your post has been deleted");
+        callApi();
+      }
+    })
+  }
 
   /* It's calling the API and waiting for the data to come back, then converting it to JSON, then
   setting
@@ -72,12 +95,18 @@ const Container = () => {
                       <button onClick={(e) => showCityDetails(city)}>
                         Show city
                       </button>
+                      <button onClick={(e) => showFromApi(city.id)}>
+                        Show city from API
+                        </button>
+                      <button onClick={(e) => deleteCity(city.id)}>
+                        Delete this city
+                        </button>
                     </li>
                   );
                 })}
             </ul>
           </div>
-          <div className="pictures"></div>
+          <div className="pictures">hjkdhfh</div>
         </div>
       </div>
     </>

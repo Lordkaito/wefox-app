@@ -137,6 +137,3 @@ const Container = () => {
 };
 
 export default Container;
-
-// this is going well. TODO for tomorrow: work on showing the images of the cities just below the list of them among with its description and name
-//

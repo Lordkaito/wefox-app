@@ -10,7 +10,6 @@ const PostElement = () => {
   const [cityId, setId] = useState<number>();
   const localApiUrl: string = "http://localhost:3000/api/v1/posts";
 
-
   const validateData = (e: any, callbackFunction: Function) => {
     e.preventDefault();
     const notValidInputs: any = [0, false, undefined, "", null, NaN];
@@ -18,11 +17,20 @@ const PostElement = () => {
     const isNotValid = (element: any) => {
       if (notValidInputs.includes(element)) {
         return true;
+      } else if (latitude && longitude) {
+        if (
+          latitude < -90 ||
+          latitude > 90 ||
+          longitude < -180 ||
+          longitude > 180
+        ) {
+          return true;
+        }
       }
       return false;
     };
     if (data.some(isNotValid)) {
-      alert("Please fill all the fields");
+      alert("Please fill all the fields with valid values");
     } else {
       callbackFunction();
       alert("Your post has been created");
@@ -44,7 +52,6 @@ const PostElement = () => {
           long: longitude,
         }),
       });
-      console.log(response.status, response.statusText);
     };
     sendData();
   };
@@ -64,56 +71,62 @@ const PostElement = () => {
           long: longitude,
         }),
       });
-      console.log(response.status, response.statusText);
     };
     sendData();
-  }
+  };
   return (
     <>
       <Navbar />
-      <div>
-        <div>
-          <div>
+      <div className="main-form">
+        <div className="form-container">
+          <div className="form-title">
             <h1>Create a city</h1>
           </div>
           <div className="form-to-post">
             <form>
-              <label htmlFor="title">Title</label>
-              <input required
+              <input
+                required
                 type="text"
                 name="title"
                 id="title"
+                maxLength={20}
+                placeholder="City name"
                 onChange={(e) => setTitle(e.target.value)}
               />
-              <label htmlFor="content">Content</label>
-              <input required
-                type="text"
+              <textarea
+                required
                 name="content"
                 id="content"
+                maxLength={200}
+                placeholder="Description"
                 onChange={(e) => setContent(e.target.value)}
               />
-              <label htmlFor="image">Image</label>
               <input
                 type="text"
                 name="image"
                 id="image"
+                placeholder="Image URL"
                 onChange={(e) => setImage(e.target.value)}
               />
-              <label htmlFor="latitude">Latitude</label>
               <input
                 type="number"
                 name="latitude"
                 id="latitude"
+                max={90}
+                min={-90}
+                placeholder="Latitude"
                 onChange={(e) => setLatitude(e.target.valueAsNumber)}
               />
-              <label htmlFor="longitude">Longitude</label>
               <input
                 type="number"
                 name="longitude"
                 id="longitude"
+                max={180}
+                min={-180}
+                placeholder="Longitude"
                 onChange={(e) => setLongitude(e.target.valueAsNumber)}
               />
-              <button
+              <button className="post-button"
                 type="submit"
                 onClick={(e) => validateData(e, postRequest)}
               >
@@ -122,55 +135,55 @@ const PostElement = () => {
             </form>
           </div>
         </div>
-        <div>
-          <div>
+        <div className="form-container">
+          <div className="form-title">
             <h1>Edit a city</h1>
           </div>
           <div className="form-to-edit">
             <form>
-              <label htmlFor="id">City Id</label>
               <input
                 type="number"
                 name="id"
                 id="id"
+                placeholder="City ID"
                 onChange={(e) => setId(e.target.valueAsNumber)}
               />
-              <label htmlFor="title">Title</label>
               <input
                 type="text"
                 name="title"
                 id="title"
+                placeholder="City name"
                 onChange={(e) => setTitle(e.target.value)}
               />
-              <label htmlFor="content">Content</label>
               <input
                 type="text"
                 name="content"
                 id="content"
+                placeholder="Description"
                 onChange={(e) => setContent(e.target.value)}
               />
-              <label htmlFor="image">Image</label>
               <input
                 type="text"
                 name="image"
                 id="image"
+                placeholder="Image URL"
                 onChange={(e) => setImage(e.target.value)}
               />
-              <label htmlFor="latitude">Latitude</label>
               <input
                 type="number"
                 name="latitude"
                 id="latitude"
+                placeholder="Latitude"
                 onChange={(e) => setLatitude(e.target.valueAsNumber)}
               />
-              <label htmlFor="longitude">Longitude</label>
               <input
                 type="number"
                 name="longitude"
                 id="longitude"
+                placeholder="Longitude"
                 onChange={(e) => setLongitude(e.target.valueAsNumber)}
               />
-              <button
+              <button className="put-button"
                 type="submit"
                 onClick={(e) => validateData(e, putRequest)}
               >

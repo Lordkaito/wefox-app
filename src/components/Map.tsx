@@ -6,7 +6,6 @@ import "../styles/map.css";
 
 const Map = ({name, latitude, longitude, zoom}:MapProps ) => {
   const API_KEY: string = "Dz4QF34eAKhU6mkAKuiN";
-  console.log(name, latitude, longitude, zoom)
   const mapContainer: any = useRef();
   const map: any = useRef();
 

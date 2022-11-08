@@ -1,3 +1,87 @@
 .container {
   display: flex;
+  overflow: hidden;
+}
+
+.cities-info {
+  padding-left: 2rem;
+  width: 30%;
+  background-color: aliceblue;
+}
+
+.info-container {
+  height: 50%;
+  margin-bottom: 1rem;
+}
+
+.pictures {
+  height: 50%;
+  max-height: 50%;
+  max-width: 100%;
+  padding-right: 1rem;
+}
+
+.cities-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  width: 100%;
+}
+
+.city-li {
+  border-bottom: 1px solid black;
+  padding: 1rem 0;
+  margin-right: 1rem;
+}
+
+.pictures img {
+  width: 93%;
+}
+
+.city-title {
+  margin: 0;
+}
+
+.city-buttons {
+  margin-top: 1.3rem;
+}
+
+button {
+  margin-right: 1rem;
+  padding: .3rem .5rem;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+.show-button, .api-show-button {
+  background-color: #2b8400;
+}
+
+.show-button:hover, .api-show-button:hover {
+  background-color: #3b9a00;
+}
+
+.delete-button {
+  background-color: #c92a00;
+}
+
+.delete-button:hover {
+  background-color: #f82a00;
+}
+
+.please-text {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+span {
+  margin-right: 1rem;
 }
